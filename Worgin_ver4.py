@@ -1,5 +1,7 @@
 #  Tic Toc function is to find the time it takes for program to excecute 
 #  tic() tarts the clock and toc stop the clock and report the duration
+import os, ssl
+
 def tic():
     #Homemade version of matlab tic and toc functions
     import time
@@ -9,9 +11,9 @@ def tic():
 def toc():
     import time
     if 'startTime_for_tictoc' in globals():
-        print "Elapsed time is " + str(time.time() - startTime_for_tictoc) + " seconds."
+        print("Elapsed time is " + str(time.time() - startTime_for_tictoc) + " seconds.")
     else:
-        print "Toc: start time not set"
+        print("Toc: start time not set")
 
 # Split string is homemade fuction to break strings into words and return the words in a list format  
 # Splitlist can be any list of charatcters that in a normal not can separate two words. 
@@ -20,7 +22,7 @@ def toc():
 def split_string(source,splitlist):
     words = []
     atsplit=True
-    if type(source)!=str or type(source)!=unicode:
+    if type(source)!=str or type(source)!=str:
         for ee in source:
             e = ee.encode('ascii', 'ignore')
             if len(e)<50:
@@ -72,7 +74,7 @@ def split_string2(source,splitlist):
 
 
 def get_page3(url):
-    from urllib import urlopen
+    from urllib.request import urlopen
     from bs4 import BeautifulSoup
     from bs4.element import Comment
     def tag_visible(element):
@@ -85,8 +87,8 @@ def get_page3(url):
     def text_from_html(body):
         soup = BeautifulSoup(body, 'html.parser')
         texts = soup.findAll(text=True)
-        visible_texts = filter(tag_visible, texts)  
-        return u" ".join(t.strip() for t in visible_texts)
+        visible_texts = list(filter(tag_visible, texts))  
+        return " ".join(t.strip() for t in visible_texts)
         
     html = urlopen(url).read()
     #print(text_from_html(html))
@@ -96,7 +98,7 @@ def get_page3(url):
 def get_page2(url):
     try:
         
-        from urllib import urlopen
+        from urllib.request import urlopen
         resp = urlopen(url).read()
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(resp,'html.parser')
@@ -110,7 +112,7 @@ def get_page2(url):
 def get_page(url):
     try:
         
-        from urllib import urlopen
+        from urllib.request import urlopen
         resp = urlopen(url).read()
         return resp
     except:
@@ -124,7 +126,7 @@ def request_page(url):
 
 #Count the words and report them in dictionary
 def word_count(w,worg):
-    if w in worg.keys():
+    if w in list(worg.keys()):
         worg[w]=worg[w]+1
     else:
         worg[w]=1
@@ -139,7 +141,7 @@ def worgIt(pageUrl):
         if w1.find('\n')==-1:
             worg=word_count(w1,worg)
         else:
-            w2=filter(None, w1.strip().split("\n"))   
+            w2=[_f for _f in w1.strip().split("\n") if _f]   
             if len(w2)>0:
                 for w in w2:
                     worg=word_count(w,worg)
@@ -154,10 +156,10 @@ def content2ListText(pageUrl):
 
 #search within worg dictionary
 def wS(wordOfInterest, worg):
-    print "*****************************1**********************************"
-    print ' how many times word "',wordOfInterest,'" was seen in the URL'
-    print worg.get(wordOfInterest.lower(),0)
-    print "*****************************2********************************"
+    print("*****************************1**********************************")
+    print(' how many times word "',wordOfInterest,'" was seen in the URL')
+    print(worg.get(wordOfInterest.lower(),0))
+    print("*****************************2********************************")
     return
    
 #------  Code main Body Starts here -------- 3
@@ -165,11 +167,13 @@ def wS(wordOfInterest, worg):
 #------  Code main Body Starts here -------- 1
 
 
-
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
+    getattr(ssl, '_create_unverified_context', None)): 
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 pageUrl = "https://www.bbc.com/news/world-middle-east-14541327"
 worg, textOnly = worgIt(pageUrl)
-worgList=worg.keys()
+worgList=list(worg.keys())
 worgN=[]
 wList=[]
 text=''
@@ -193,7 +197,7 @@ index, value = max(enumerate(worgN), key=operator.itemgetter(1))
 
 for i in worgList:
     if worg[i]>50 and worg[i]<100:
-        print i, worg[i]
+        print(i, worg[i])
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 wordcloud = WordCloud().generate(textOnly)
