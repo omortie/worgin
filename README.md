@@ -7,7 +7,7 @@ A Word Engine
 Required: Python 3+
 
 use the command to download the project:
-'git clone git clone https://gitlab.com/omortie/worgin'
+'git clone https://gitlab.com/omortie/worgin'
 
 then use the commands below to run it:
 'cd worgin'
