@@ -1,5 +1,5 @@
 #  Tic Toc function is to find the time it takes for program to excecute 
-#  tic() tarts the clock and toc stop the clock and report the duration
+#  tic() starts the clock and toc() stop the clock and report the duration
 import os, ssl
 
 def tic():
