@@ -7,16 +7,23 @@ A Word Engine
 Required: Python 3+
 
 use the command to download the project:
-'git clone https://gitlab.com/omortie/worgin'
+```
+git clone https://gitlab.com/omortie/worgin'
+```
 
 then use the commands below to run it:
-'cd worgin'
-'python worgin.py'
+```
+cd worgin
+python worgin.py
+```
 
 
 # dependant python libraries:
-'wordcloud, request'
+```
+bs4, request, wordcloud
+```
 
 use pip to install them on your python engine:
-'pip install wordcloud'
-'pip install request'
+```
+pip install bs4 request wordcloud
+```
