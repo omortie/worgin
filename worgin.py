@@ -171,7 +171,7 @@ if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
     getattr(ssl, '_create_unverified_context', None)): 
     ssl._create_default_https_context = ssl._create_unverified_context
 
-pageUrl = "https://www.bbc.com/news/world-middle-east-14541327"
+pageUrl = "https://www.bbc.com"
 worg, textOnly = worgIt(pageUrl)
 worgList=list(worg.keys())
 worgN=[]
@@ -183,7 +183,7 @@ for i in worgList:
     wList.append([i,Q])
     text= text + (i+' ')*Q
 
-wordOfInterest="Iran"
+wordOfInterest="Coronavirus"
 wS(wordOfInterest, worg)   
 #print worg
 #import operator
