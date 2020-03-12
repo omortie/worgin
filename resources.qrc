@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/worginicon.svg</file>
+        <file>icons/plus.svg</file>
+        <file>icons/minus.svg</file>
+    </qresource>
+</RCC>
