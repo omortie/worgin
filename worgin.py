@@ -171,36 +171,37 @@ if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
     getattr(ssl, '_create_unverified_context', None)): 
     ssl._create_default_https_context = ssl._create_unverified_context
 
-pageUrl = "https://www.bbc.com"
-worg, textOnly = worgIt(pageUrl)
-worgList=list(worg.keys())
-worgN=[]
-wList=[]
-text=''
-for i in worgList:
-    Q=worg[i]
-    worgN.append(Q)
-    wList.append([i,Q])
-    text= text + (i+' ')*Q
+def worging(pageUrl, wordOfInterest):
+    #pageUrl = "https://www.aljazeera.com"
+    worg, textOnly = worgIt(pageUrl)
+    worgList=list(worg.keys())
+    worgN=[]
+    wList=[]
+    text=''
+    for i in worgList:
+        Q=worg[i]
+        worgN.append(Q)
+        wList.append([i,Q])
+        text= text + (i+' ')*Q
 
-wordOfInterest="Coronavirus"
-wS(wordOfInterest, worg)   
-#print worg
-#import operator
-#sorted_x = sorted(worg.items(), key=operator.itemgetter(0))
-#print sorted_x
-import matplotlib.pyplot as plt
+    #wordOfInterest="Coronavirus"
+    wS(wordOfInterest, worg)   
+    #print worg
+    #import operator
+    #sorted_x = sorted(worg.items(), key=operator.itemgetter(0))
+    #print sorted_x
+    import matplotlib.pyplot as plt
+    
+    #plt.plot(worgList, worgN)
+    import operator
+    index, value = max(enumerate(worgN), key=operator.itemgetter(1))
+    
+    for i in worgList:
+        if worg[i]>50 and worg[i]<100:
+            print(i, worg[i])
 
-#plt.plot(worgList, worgN)
-import operator
-index, value = max(enumerate(worgN), key=operator.itemgetter(1))
-
-for i in worgList:
-    if worg[i]>50 and worg[i]<100:
-        print(i, worg[i])
-
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-wordcloud = WordCloud().generate(textOnly)
-plt.imshow(wordcloud, interpolation='bilinear')
-plt.axis("off")
-plt.show()
+    from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+    wordcloud = WordCloud().generate(textOnly)
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+    plt.show()

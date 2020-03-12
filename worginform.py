@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import worgin
 
 class Ui_WorginForm(object):
     def setupUi(self, WorginForm):
@@ -38,6 +38,8 @@ class Ui_WorginForm(object):
         self.horizontalLayout_2.addWidget(self.label_2)
         self.wordsList = QtWidgets.QListWidget(WorginForm)
         self.wordsList.setObjectName("wordsList")
+        item = QtWidgets.QListWidgetItem()
+        self.wordsList.addItem(item)
         self.horizontalLayout_2.addWidget(self.wordsList)
         self.frame = QtWidgets.QFrame(WorginForm)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -61,6 +63,7 @@ class Ui_WorginForm(object):
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_3.addWidget(self.label_3)
         self.newWordEdit = QtWidgets.QLineEdit(WorginForm)
+        self.newWordEdit.setText("")
         self.newWordEdit.setObjectName("newWordEdit")
         self.horizontalLayout_3.addWidget(self.newWordEdit)
         self.addBtn = QtWidgets.QToolButton(WorginForm)
@@ -96,8 +99,8 @@ class Ui_WorginForm(object):
         self.gridLayout.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
 
         self.retranslateUi(WorginForm)
-        self.addBtn.clicked.connect(self.somethingHappened)
-        self.startBtn.clicked.connect(WorginForm.repaint)
+        self.addBtn.clicked.connect(WorginForm.repaint)
+        self.startBtn.clicked.connect(self.startWorging)
         self.removeBtn.clicked.connect(WorginForm.repaint)
         QtCore.QMetaObject.connectSlotsByName(WorginForm)
 
@@ -105,15 +108,21 @@ class Ui_WorginForm(object):
         _translate = QtCore.QCoreApplication.translate
         WorginForm.setWindowTitle(_translate("WorginForm", "Worgin"))
         self.label.setText(_translate("WorginForm", "Address of The Target:"))
-        self.label_2.setText(_translate("WorginForm", "Words List:"))
+        self.addressEdit.setText(_translate("WorginForm", "bbc.com"))
+        self.label_2.setText(_translate("WorginForm", "Words of Interest:"))
+        __sortingEnabled = self.wordsList.isSortingEnabled()
+        self.wordsList.setSortingEnabled(False)
+        item = self.wordsList.item(0)
+        item.setText(_translate("WorginForm", "coronavirus"))
+        self.wordsList.setSortingEnabled(__sortingEnabled)
         self.removeBtn.setText(_translate("WorginForm", "..."))
         self.label_3.setText(_translate("WorginForm", "New Word:"))
         self.addBtn.setText(_translate("WorginForm", "..."))
         self.label_4.setText(_translate("WorginForm", "Logs:"))
         self.startBtn.setText(_translate("WorginForm", "Worgin"))
 
-    def somethingHappened(self):
-        print('Something happened')
+    def startWorging(self):
+        worgin.worging(ui.addressEdit.text(), ui.wordsList.item(0).text())
 
 import resources_rc
 
