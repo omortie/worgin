@@ -8,12 +8,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import worgin
+
 
 class Ui_WorginForm(object):
     def setupUi(self, WorginForm):
         WorginForm.setObjectName("WorginForm")
-        WorginForm.resize(422, 454)
+        WorginForm.resize(408, 454)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/worginicon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         WorginForm.setWindowIcon(icon)
@@ -27,6 +27,7 @@ class Ui_WorginForm(object):
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.addressEdit = QtWidgets.QLineEdit(WorginForm)
+        self.addressEdit.setText("")
         self.addressEdit.setObjectName("addressEdit")
         self.horizontalLayout.addWidget(self.addressEdit)
         self.verticalLayout_3.addLayout(self.horizontalLayout)
@@ -38,8 +39,6 @@ class Ui_WorginForm(object):
         self.horizontalLayout_2.addWidget(self.label_2)
         self.wordsList = QtWidgets.QListWidget(WorginForm)
         self.wordsList.setObjectName("wordsList")
-        item = QtWidgets.QListWidgetItem()
-        self.wordsList.addItem(item)
         self.horizontalLayout_2.addWidget(self.wordsList)
         self.frame = QtWidgets.QFrame(WorginForm)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -100,7 +99,7 @@ class Ui_WorginForm(object):
 
         self.retranslateUi(WorginForm)
         self.addBtn.clicked.connect(WorginForm.repaint)
-        self.startBtn.clicked.connect(self.startWorging)
+        self.startBtn.clicked.connect(WorginForm.repaint)
         self.removeBtn.clicked.connect(WorginForm.repaint)
         QtCore.QMetaObject.connectSlotsByName(WorginForm)
 
@@ -108,30 +107,11 @@ class Ui_WorginForm(object):
         _translate = QtCore.QCoreApplication.translate
         WorginForm.setWindowTitle(_translate("WorginForm", "Worgin"))
         self.label.setText(_translate("WorginForm", "Address of The Target:"))
-        self.addressEdit.setText(_translate("WorginForm", "bbc.com"))
         self.label_2.setText(_translate("WorginForm", "Words of Interest:"))
-        __sortingEnabled = self.wordsList.isSortingEnabled()
-        self.wordsList.setSortingEnabled(False)
-        item = self.wordsList.item(0)
-        item.setText(_translate("WorginForm", "coronavirus"))
-        self.wordsList.setSortingEnabled(__sortingEnabled)
         self.removeBtn.setText(_translate("WorginForm", "..."))
         self.label_3.setText(_translate("WorginForm", "New Word:"))
         self.addBtn.setText(_translate("WorginForm", "..."))
         self.label_4.setText(_translate("WorginForm", "Logs:"))
         self.startBtn.setText(_translate("WorginForm", "Worgin"))
-
-    def startWorging(self):
-        worgin.worging(ui.addressEdit.text(), ui.wordsList.item(0).text())
-
+        
 import resources_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    WorginForm = QtWidgets.QWidget()
-    ui = Ui_WorginForm()
-    ui.setupUi(WorginForm)
-    WorginForm.show()
-    sys.exit(app.exec_())
