@@ -2,7 +2,6 @@
 
 A Word Engine
 
-
 # Using instructions
 Required: Python 3+
 
@@ -14,16 +13,12 @@ git clone https://gitlab.com/omortie/worgin
 then use the commands below to run it:
 ```
 cd worgin
-python worgin.py
+pip install -r requirements.txt
+python worginui.py
 ```
 
 
 # dependant python libraries:
 ```
-bs4, request, wordcloud
-```
-
-use pip to install them on your python engine:
-```
-pip install bs4 request wordcloud
+bs4, request, wordcloud, matplotlib, PyQt5
 ```
