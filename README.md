@@ -16,9 +16,3 @@ cd worgin
 pip install -r requirements.txt
 python worginui.py
 ```
-
-
-# dependant python libraries:
-```
-bs4, request, wordcloud, matplotlib, PyQt5
-```
